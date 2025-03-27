@@ -8,5 +8,5 @@ import (
 func Migrate() {
 	initializers.DB.AutoMigrate(&models.Profile{}, &models.Language{})
 	initializers.DB.AutoMigrate(&models.Family{}, &models.Sibling{})
-	
+	initializers.DB.AutoMigrate(&models.Testing{}, &models.AcademicTest{})
 }
