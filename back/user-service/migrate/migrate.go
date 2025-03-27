@@ -7,7 +7,6 @@ import (
 
 func Migrate() {
 	initializers.DB.AutoMigrate(&models.Profile{}, &models.Language{})
-	// other models
-	// ...
 	initializers.DB.AutoMigrate(&models.Family{}, &models.Sibling{})
+	
 }
