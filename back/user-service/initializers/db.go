@@ -1,11 +1,11 @@
-package initializers
+package initializers	//
 
 import (
 	"database/sql"
 	"log"
 	"os"
 
-	_ "github.com/lib/pq" // posgresql driver
+	_ "github.com/lib/pq" // posgresql driver 
 )
 
 var DB *sql.DB
