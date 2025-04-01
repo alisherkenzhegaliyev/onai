@@ -3,10 +3,8 @@ package models
 type ActivitiesSection struct {
 	ID            uint `json:"id"`
 	UserID        uint `json:"user_id"`
-	HasActivities bool `json:"has_activities"`
 }
 
-// Each Activity record
 type Activity struct {
 	ID                  uint   `json:"id"`
 	ActivitiesID        uint   `json:"activities_id"`
@@ -19,11 +17,11 @@ type Activity struct {
 	Intend              bool   `json:"intend"`
 }
 
-//sql
+// SQL below 
+
 // CREATE TABLE activities_section (
 //     id SERIAL PRIMARY KEY,
-//     user_id INT NOT NULL,
-//     has_activities BOOLEAN NOT NULL
+//     user_id INT NOT NULL
 // );
 
 // CREATE TABLE activity (
