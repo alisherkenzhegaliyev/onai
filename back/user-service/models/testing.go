@@ -18,7 +18,7 @@ type TestDetail struct {
 	FieldValue string `json:"field_value"`
 }
 
-//SQL BELOW
+// SQL below
 
 // CREATE TABLE test (
 //     id SERIAL PRIMARY KEY,
@@ -28,12 +28,12 @@ type TestDetail struct {
 // CREATE TABLE user_test (
 //     id SERIAL PRIMARY KEY,
 //     user_id INT,
-//     test_id varchar REFERENCES test(id) ON DELETE CASCADE
+//     test_id INT REFERENCES test(id) ON DELETE CASCADE
 // );
 
 // CREATE TABLE test_detail (
 //     id SERIAL PRIMARY KEY,
-//     user_test_id INT REFERENCES user_test(id) ON DELETE CASCADE,
-//     field_name VARCHAR(255),
-//     field_value TEXT
+//     user_test_id INT REFERENCES user_test(id) ON DELETE CASCADE,  
+//     field_name VARCHAR(255),  
+//     field_value TEXT 
 // );
