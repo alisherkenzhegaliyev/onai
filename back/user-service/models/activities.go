@@ -1,27 +1,39 @@
 package models
 
-type Activities struct {
-	ID            uint `gorm:"primaryKey" json:"id"`
-	ProfileID     uint `gorm:"not null"   json:"profile_id"` // Foreign key to Profile
+type ActivitiesSection struct {
+	ID            uint `json:"id"`
+	UserID        uint `json:"user_id"`
 	HasActivities bool `json:"has_activities"`
-
-	// If HasActivities is true, the user can fill in multiple activity entries:
-	ActivityList []Activity `gorm:"foreignKey:ActivitiesID;constraint:OnDelete:CASCADE" json:"activity_list"`
 }
 
 // Each Activity record
 type Activity struct {
-	ID           uint   `gorm:"primaryKey" json:"id"`
-	ActivitiesID uint   `gorm:"not null" json:"activities_id"`
-	ActivityType string `gorm:"size:50"   json:"activity_type"`
-	Position     string `gorm:"size:50"   json:"position"`
-	Organization string `gorm:"size:100"  json:"organization"`
-	Description  string `gorm:"size:150"  json:"description"`
-
-	GradeLevels []string `gorm:"-"         json:"grade_levels"`
-	Timing      []string `gorm:"-"         json:"timing"`
-
-	Hours  string `gorm:"not null" json:"hours"`
-	Weeks  string `gorm:"not null" json:"weeks"`
-	Intend bool   `gorm:"not null" json:"intend"`
+	ID                  uint   `json:"id"`
+	ActivitiesID        uint   `json:"activities_id"`
+	ActivityType        string `json:"activity_type"`
+	PositionDescription string `json:"position_description"`
+	Organization        string `json:"organization"`
+	ActivityDescription string `json:"activity_description"`
+	Hours               string `json:"hours"`
+	Weeks               string `json:"weeks"`
+	Intend              bool   `json:"intend"`
 }
+
+//sql
+// CREATE TABLE activities_section (
+//     id SERIAL PRIMARY KEY,
+//     user_id INT NOT NULL,
+//     has_activities BOOLEAN NOT NULL
+// );
+
+// CREATE TABLE activity (
+//     id SERIAL PRIMARY KEY,
+//     activities_id INT NOT NULL REFERENCES activities_section(id) ON DELETE CASCADE,
+//     activity_type VARCHAR(50),
+//     position_description VARCHAR(50),
+//     organization VARCHAR(100),
+//     activity_description VARCHAR(150),
+//     hours VARCHAR NOT NULL,
+//     weeks VARCHAR NOT NULL,
+//     intend BOOLEAN NOT NULL
+// );
