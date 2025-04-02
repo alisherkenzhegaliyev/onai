@@ -14,7 +14,8 @@ func init() {
 func main() {
 	r := gin.Default()
 
-	r.GET("/", controllers.RootRoute)
+	controllers.ActivitiesRoutes(r)
+	// others...
 
 	r.Run()
 }
