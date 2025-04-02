@@ -1,34 +1,69 @@
 package models
 
 type Profile struct {
-	ID             uint           `gorm:"primaryKey" json:"id"`
-	PersonalInfo   PersonalInfo   `gorm:"embedded" json:"personal_info"`
-	Address        Address        `gorm:"embedded" json:"address"`
-	ContactDetails ContactDetails `gorm:"embedded" json:"contact_details"`
-	LegalSex       string         `gorm:"not null" json:"legal_sex"`
-	Languages      []Language     `gorm:"foreignKey:ProfileID;constraint:OnDelete:CASCADE" json:"languages"`
-	Citizen        string         `gorm:"not null" json:"citizen"`
-}
-
-type PersonalInfo struct {
-	FirstName string `gorm:"not null" json:"first_name"`
-	LastName  string `gorm:"not null" json:"last_name"`
-	DOB       string `gorm:"not null" json:"date_of_birth"`
+	ID          int    `json:"id"`
+	UserID      int    `json:"user_id"`
+	FirstName   string `json:"first_name"`
+	LastName    string `json:"last_name"`
+	DateOfBirth string `json:"date_of_birth"` // DATE in DB, string in Go
+	LegalSex    string `json:"legal_sex"`
+	Citizen     string `json:"citizen"`
+	AddressID   int    `json:"address_id"`
+	ContactID   int    `json:"contact_id"`
 }
 
 type Address struct {
-	Country string `gorm:"not null" json:"country"`
-	City    string `gorm:"not null" json:"city"`
+	ID      int    `json:"id"`
+	Country string `json:"country"`
+	City    string `json:"city"`
+	Street  string `json:"street"`
 }
 
-type ContactDetails struct {
-	CountryCode  string `gorm:"not null" json:"country_code"`
-	MobileNumber string `gorm:"not null" json:"mobile_number"`
+type ContactDetail struct {
+	ID           int    `json:"id"`
+	CountryCode  string `json:"country_code"`
+	MobileNumber string `json:"mobile_number"`
 }
 
 type Language struct {
-	ID          uint   `gorm:"primaryKey" json:"id"`
-	ProfileID   uint   `gorm:"not null" json:"profile_id"` // Foreign key
-	Language    string `gorm:"not null" json:"language"`
-	Proficiency string `gorm:"not null" json:"proficiency"` // Can be Beginner, Intermediate, Fluent
+	ID          int    `json:"id"`
+	ProfileID   int    `json:"profile_id"`
+	Language    string `json:"language"`
+	Proficiency string `json:"proficiency"`
 }
+
+// SQL below
+
+// CREATE TABLE address (
+//     id SERIAL PRIMARY KEY,
+//     country VARCHAR(100),
+//     city VARCHAR(100),
+//     street VARCHAR(150)
+// );
+
+// CREATE TABLE contact_detail (
+//     id SERIAL PRIMARY KEY,
+//     country_code VARCHAR(15),
+//     mobile_number VARCHAR(25)
+// );
+
+// CREATE TABLE profile (
+//     id SERIAL PRIMARY KEY,
+//     first_name VARCHAR(100),
+//     last_name VARCHAR(100),
+//     date_of_birth DATE,
+//     legal_sex VARCHAR(15),
+//     citizen VARCHAR(100),
+//     address_id INT,
+//     contact_id INT,
+//     FOREIGN KEY (address_id) REFERENCES address(id) ON DELETE CASCADE,
+//     FOREIGN KEY (contact_id) REFERENCES contact_detail(id) ON DELETE CASCADE
+// );
+
+// CREATE TABLE language (
+//     id SERIAL PRIMARY KEY,
+//     profile_id INT,
+//     language VARCHAR(60),
+//     proficiency VARCHAR(60),
+//     FOREIGN KEY (profile_id) REFERENCES profile(id) ON DELETE CASCADE
+// );

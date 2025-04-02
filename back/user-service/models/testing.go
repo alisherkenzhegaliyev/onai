@@ -1,23 +1,39 @@
 package models
 
-type Testing struct {
-	ID               uint `gorm:"primaryKey" json:"id"`
-	ProfileID        uint `gorm:"not null"  json:"profile_id"`
-	HasAcademicTests bool `gorm:"not null"  json:"has_academic_tests"`
-
-	// If true, store multiple tests here, e.g. IELTS, TOEFL, SAT, etc.
-	AcademicTests    []AcademicTest `gorm:"foreignKey:TestingID;constraint:OnDelete:CASCADE" json:"academic_tests"`
-	HasNationalExams bool           `gorm:"not null"  json:"has_national_exams"`
-
-	// If true, store a rating from 1 to 10
-	NationalExamRating int `json:"national_exam_rating"`
+type Test struct {
+	ID   uint   `json:"id"`
+	Name string `json:"name"`
 }
 
-// Similar to how Languages is separate in Profile model.
-type AcademicTest struct {
-	ID        uint   `gorm:"primaryKey" json:"id"`
-	TestingID uint   `gorm:"not null"   json:"testing_id"`
-	TestName  string `gorm:"not null"   json:"test_name"`
-	Score     string `json:"score"`
-	TestDate  string `json:"test_date"`
+type UserTest struct {
+	ID     uint `json:"id"`
+	UserID uint `json:"user_id"`
+	TestID uint `json:"test_id"`
 }
+
+type TestDetail struct {
+	ID         uint   `json:"id"`
+	UserTestID uint   `json:"user_test_id"`
+	FieldName  string `json:"field_name"`
+	FieldValue string `json:"field_value"`
+}
+
+// SQL below
+
+// CREATE TABLE test (
+//     id SERIAL PRIMARY KEY,
+//     name VARCHAR(255) NOT NULL
+// );
+
+// CREATE TABLE user_test (
+//     id SERIAL PRIMARY KEY,
+//     user_id INT,
+//     test_id INT REFERENCES test(id) ON DELETE CASCADE
+// );
+
+// CREATE TABLE test_detail (
+//     id SERIAL PRIMARY KEY,
+//     user_test_id INT REFERENCES user_test(id) ON DELETE CASCADE,  
+//     field_name VARCHAR(255),  
+//     field_value TEXT 
+// );
