@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { StudentWelcome } from './pages/StudentWelcome';
-import { ProfessionalWelcome } from './pages/ProfessionalWelcome';
+import { CollegeWelcome } from './pages/CollegeWelcome';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<StudentWelcome />} />
-          <Route path="/professional" element={<ProfessionalWelcome />} />
+          <Route path="/college" element={<CollegeWelcome />} />
         </Routes>
       </div>
     </BrowserRouter>
