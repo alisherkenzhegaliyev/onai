@@ -15,6 +15,7 @@ func main() {
 	r := gin.Default()
 
 	controllers.ActivitiesRoutes(r)
+	controllers.EducationRoutes(r)
 	// others...
 
 	r.Run()
